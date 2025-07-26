@@ -6,6 +6,7 @@ from src.webui.components.browser_settings_tab import create_browser_settings_ta
 from src.webui.components.browser_use_agent_tab import create_browser_use_agent_tab
 from src.webui.components.deep_research_agent_tab import create_deep_research_agent_tab
 from src.webui.components.load_save_config_tab import create_load_save_config_tab
+from src.webui.components.workshop_1_tab import create_workshop_1_tab
 
 theme_map = {
     "Default": gr.themes.Default(),
@@ -57,39 +58,51 @@ def create_ui(theme_name="Ocean"):
     ui_manager = WebuiManager()
 
     with gr.Blocks(
-            title="Browser Use WebUI", theme=theme_map[theme_name], css=css, js=js_func,
+            title="Browser Use", theme=theme_map[theme_name], css=css, js=js_func,
     ) as demo:
         with gr.Row():
             gr.Markdown(
                 """
-                # 🌐 Browser Use WebUI
-                ### Control your browser with AI assistance
+                # 🌐 Browser Use
+                ### Panorama des fonctionnalités d'agent web
                 """,
                 elem_classes=["header-text"],
             )
 
-        with gr.Tabs() as tabs:
-            with gr.TabItem("⚙️ Agent Settings"):
+        with gr.Tabs():
+
+            with gr.TabItem("⚙️ Param. Agent"):
                 create_agent_settings_tab(ui_manager)
 
-            with gr.TabItem("🌐 Browser Settings"):
+            with gr.TabItem("🌐 Param. Navigateur"):
                 create_browser_settings_tab(ui_manager)
 
-            with gr.TabItem("🤖 Run Agent"):
+            with gr.TabItem("🤖 Exécuter l'agent"):
                 create_browser_use_agent_tab(ui_manager)
 
-            with gr.TabItem("🎁 Agent Marketplace"):
+            with gr.TabItem("🤖 Atelier Browser Use"):
                 gr.Markdown(
                     """
-                    ### Agents built on Browser-Use
+                    ### Atelier sur l'utilisation de Browser Use
                     """,
                     elem_classes=["tab-header-text"],
                 )
                 with gr.Tabs():
-                    with gr.TabItem("Deep Research"):
+                    with gr.TabItem("OrangeHRM - Connexion"):
+                        create_workshop_1_tab(ui_manager)
+
+            with gr.TabItem("🎁 Agents personnalisés"):
+                gr.Markdown(
+                    """
+                    ### Agents construits à partir de Browser Use
+                    """,
+                    elem_classes=["tab-header-text"],
+                )
+                with gr.Tabs():
+                    with gr.TabItem("Recherche approfondie"):
                         create_deep_research_agent_tab(ui_manager)
 
-            with gr.TabItem("📁 Load & Save Config"):
+            with gr.TabItem("📁 Charger & Sauvegarder"):
                 create_load_save_config_tab(ui_manager)
 
     return demo
