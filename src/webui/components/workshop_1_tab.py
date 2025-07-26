@@ -990,8 +990,8 @@ def create_workshop_1_tab(webui_manager: WebuiManager):
             show_copy_button=True,
         )
         user_input = gr.Textbox(
-            label="Your Task or Response",
-            placeholder="Enter your task here or provide assistance when asked.",
+            label="Entrer votre requête ici.",
+            placeholder="a) rends-toi sur 'https://opensource-demo.orangehrmlive.com' b) connecte-toi avec les identifiants affichés",
             lines=3,
             interactive=True,
             elem_id="user_input",
