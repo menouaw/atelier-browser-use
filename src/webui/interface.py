@@ -6,6 +6,7 @@ from src.webui.components.browser_settings_tab import create_browser_settings_ta
 from src.webui.components.browser_use_agent_tab import create_browser_use_agent_tab
 from src.webui.components.deep_research_agent_tab import create_deep_research_agent_tab
 from src.webui.components.load_save_config_tab import create_load_save_config_tab
+from src.webui.components.workshop_1_tab import create_workshop_1_tab
 
 theme_map = {
     "Default": gr.themes.Default(),
@@ -68,7 +69,8 @@ def create_ui(theme_name="Ocean"):
                 elem_classes=["header-text"],
             )
 
-        with gr.Tabs() as tabs:
+        with gr.Tabs():
+
             with gr.TabItem("⚙️ Agent Settings"):
                 create_agent_settings_tab(ui_manager)
 
@@ -77,6 +79,17 @@ def create_ui(theme_name="Ocean"):
 
             with gr.TabItem("🤖 Run Agent"):
                 create_browser_use_agent_tab(ui_manager)
+
+            with gr.TabItem("🤖 Atelier Browser Use"):
+                gr.Markdown(
+                    """
+                    ### Atelier sur l'utilisation de Browser Use
+                    """,
+                    elem_classes=["tab-header-text"],
+                )
+                with gr.Tabs():
+                    with gr.TabItem("Exercice 1"):
+                        create_workshop_1_tab(ui_manager)
 
             with gr.TabItem("🎁 Agent Marketplace"):
                 gr.Markdown(

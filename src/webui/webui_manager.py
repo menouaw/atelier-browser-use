@@ -41,6 +41,20 @@ class WebuiManager:
         self.bu_current_task: Optional[asyncio.Task] = None
         self.bu_agent_task_id: Optional[str] = None
 
+    def init_wk1_agent(self) -> None:
+        """
+        init workshop 1 agent
+        """
+        self.wk1_agent: Optional[Agent] = None
+        self.wk1_browser: Optional[CustomBrowser] = None
+        self.wk1_browser_context: Optional[CustomBrowserContext] = None
+        self.wk1_controller: Optional[CustomController] = None
+        self.wk1_chat_history: List[Dict[str, Optional[str]]] = []
+        self.wk1_response_event: Optional[asyncio.Event] = None
+        self.wk1_user_help_response: Optional[str] = None
+        self.wk1_current_task: Optional[asyncio.Task] = None
+        self.wk1_agent_task_id: Optional[str] = None
+
     def init_deep_research_agent(self) -> None:
         """
         init deep research agent
