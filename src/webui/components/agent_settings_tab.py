@@ -52,29 +52,29 @@ def create_agent_settings_tab(webui_manager: WebuiManager):
 
     with gr.Group():
         with gr.Column():
-            override_system_prompt = gr.Textbox(label="Override system prompt", lines=4, interactive=True)
-            extend_system_prompt = gr.Textbox(label="Extend system prompt", lines=4, interactive=True)
+            override_system_prompt = gr.Textbox(label="Écraser les instructions par défaut", lines=4, interactive=True)
+            extend_system_prompt = gr.Textbox(label="Étendre les instructions par défaut", lines=4, interactive=True, value="Réponds en français.")
 
     with gr.Group():
-        mcp_json_file = gr.File(label="MCP server json", interactive=True, file_types=[".json"])
-        mcp_server_config = gr.Textbox(label="MCP server", lines=6, interactive=True, visible=False)
+        mcp_json_file = gr.File(label="Serveur MCP (json)", interactive=True, file_types=[".json"])
+        mcp_server_config = gr.Textbox(label="Configuration MCP", lines=6, interactive=True, visible=False)
 
     with gr.Group():
         with gr.Row():
             llm_provider = gr.Dropdown(
                 choices=[provider for provider, model in config.model_names.items()],
-                label="LLM Provider",
-                value=os.getenv("DEFAULT_LLM", "openai"),
-                info="Select LLM provider for LLM",
+                label="Fournisseur LLM",
+                value=os.getenv("DEFAULT_LLM", "google"),
+                info="Sélectionnez le fournisseur LLM",
                 interactive=True
             )
             llm_model_name = gr.Dropdown(
-                label="LLM Model Name",
-                choices=config.model_names[os.getenv("DEFAULT_LLM", "openai")],
-                value=config.model_names[os.getenv("DEFAULT_LLM", "openai")][0],
+                label="Modèle LLM",
+                choices=config.model_names[os.getenv("DEFAULT_LLM", "google")],
+                value=config.model_names[os.getenv("DEFAULT_LLM", "google")][0],
                 interactive=True,
                 allow_custom_value=True,
-                info="Select a model in the dropdown options or directly type a custom model name"
+                info="Sélectionnez un modèle dans la liste déroulante ou tapez un nom de modèle personnalisé"
             )
         with gr.Row():
             llm_temperature = gr.Slider(
@@ -82,15 +82,15 @@ def create_agent_settings_tab(webui_manager: WebuiManager):
                 maximum=2.0,
                 value=0.6,
                 step=0.1,
-                label="LLM Temperature",
-                info="Controls randomness in model outputs",
+                label="Température LLM",
+                info="Contrôle la randomisation des sorties du modèle",
                 interactive=True
             )
 
             use_vision = gr.Checkbox(
-                label="Use Vision",
+                label="Utiliser la vision",
                 value=True,
-                info="Enable Vision(Input highlighted screenshot into LLM)",
+                info="Activer la vision (Entrée de capture d'écran en surbrillance dans LLM)",
                 interactive=True
             )
 
@@ -99,39 +99,39 @@ def create_agent_settings_tab(webui_manager: WebuiManager):
                 maximum=2 ** 16,
                 value=16000,
                 step=1,
-                label="Ollama Context Length",
-                info="Controls max context length model needs to handle (less = faster)",
+                label="Longueur du contexte Ollama",
+                info="Contrôle la longueur maximale du contexte que le modèle doit gérer (moins = plus rapide)",
                 visible=False,
                 interactive=True
             )
 
         with gr.Row():
             llm_base_url = gr.Textbox(
-                label="Base URL",
+                label="URL de base",
                 value="",
-                info="API endpoint URL (if required)"
+                info="URL de l'API (si nécessaire)"
             )
             llm_api_key = gr.Textbox(
-                label="API Key",
+                label="Clef API",
                 type="password",
                 value="",
-                info="Your API key (leave blank to use .env)"
+                info="Votre clef API (laisser vide pour utiliser .env)"
             )
 
     with gr.Group():
         with gr.Row():
             planner_llm_provider = gr.Dropdown(
                 choices=[provider for provider, model in config.model_names.items()],
-                label="Planner LLM Provider",
-                info="Select LLM provider for LLM",
+                label="Fournisseur LLM",
+                info="Sélectionnez le fournisseur LLM",
                 value=None,
                 interactive=True
             )
             planner_llm_model_name = gr.Dropdown(
-                label="Planner LLM Model Name",
+                label="Modèle LLM",
                 interactive=True,
                 allow_custom_value=True,
-                info="Select a model in the dropdown options or directly type a custom model name"
+                info="Sélectionnez un modèle dans la liste déroulante ou tapez un nom de modèle personnalisé"
             )
         with gr.Row():
             planner_llm_temperature = gr.Slider(
@@ -139,15 +139,15 @@ def create_agent_settings_tab(webui_manager: WebuiManager):
                 maximum=2.0,
                 value=0.6,
                 step=0.1,
-                label="Planner LLM Temperature",
-                info="Controls randomness in model outputs",
+                label="Température LLM",
+                info="Contrôle la randomisation des sorties du modèle",
                 interactive=True
             )
 
             planner_use_vision = gr.Checkbox(
-                label="Use Vision(Planner LLM)",
+                label="Utiliser la vision",
                 value=False,
-                info="Enable Vision(Input highlighted screenshot into LLM)",
+                info="Activer la vision (Entrée de capture d'écran en surbrillance dans LLM)",
                 interactive=True
             )
 
@@ -156,23 +156,23 @@ def create_agent_settings_tab(webui_manager: WebuiManager):
                 maximum=2 ** 16,
                 value=16000,
                 step=1,
-                label="Ollama Context Length",
-                info="Controls max context length model needs to handle (less = faster)",
+                label="Longueur du contexte Ollama",
+                info="Contrôle la longueur maximale du contexte que le modèle doit gérer (moins = plus rapide)",
                 visible=False,
                 interactive=True
             )
 
         with gr.Row():
             planner_llm_base_url = gr.Textbox(
-                label="Base URL",
+                label="URL de base",
                 value="",
-                info="API endpoint URL (if required)"
+                info="URL de l'API (si nécessaire)"
             )
             planner_llm_api_key = gr.Textbox(
-                label="API Key",
+                label="Clef API",
                 type="password",
                 value="",
-                info="Your API key (leave blank to use .env)"
+                info="Votre clef API (laisser vide pour utiliser .env)"
             )
 
     with gr.Row():
@@ -181,8 +181,8 @@ def create_agent_settings_tab(webui_manager: WebuiManager):
             maximum=1000,
             value=100,
             step=1,
-            label="Max Run Steps",
-            info="Maximum number of steps the agent will take",
+            label="Nombre maximum d'étapes",
+            info="Nombre maximum d'étapes que l'agent pourra effectuer",
             interactive=True
         )
         max_actions = gr.Slider(
@@ -190,20 +190,20 @@ def create_agent_settings_tab(webui_manager: WebuiManager):
             maximum=100,
             value=10,
             step=1,
-            label="Max Number of Actions",
-            info="Maximum number of actions the agent will take per step",
+            label="Nombre maximum d'actions",
+            info="Nombre maximum d'actions que l'agent pourra effectuer par étape",
             interactive=True
         )
 
     with gr.Row():
         max_input_tokens = gr.Number(
-            label="Max Input Tokens",
+            label="Nombre maximum de jetons",
             value=128000,
             precision=0,
             interactive=True
         )
         tool_calling_method = gr.Dropdown(
-            label="Tool Calling Method",
+            label="Méthode d'appel d'outil",
             value="auto",
             interactive=True,
             allow_custom_value=True,

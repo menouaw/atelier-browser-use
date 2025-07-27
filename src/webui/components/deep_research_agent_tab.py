@@ -382,27 +382,27 @@ def create_deep_research_agent_tab(webui_manager: WebuiManager):
 
     with gr.Group():
         with gr.Row():
-            mcp_json_file = gr.File(label="MCP server json", interactive=True, file_types=[".json"])
-            mcp_server_config = gr.Textbox(label="MCP server", lines=6, interactive=True, visible=False)
+            mcp_json_file = gr.File(label="Serveur MCP (json)", interactive=True, file_types=[".json"])
+            mcp_server_config = gr.Textbox(label="Serveur MCP", lines=6, interactive=True, visible=False)
 
     with gr.Group():
-        research_task = gr.Textbox(label="Research Task", lines=5,
+        research_task = gr.Textbox(label="Tâche de recherche", lines=5,
                                    value="Give me a detailed travel plan to Switzerland from June 1st to 10th.",
                                    interactive=True)
         with gr.Row():
-            resume_task_id = gr.Textbox(label="Resume Task ID", value="",
+            resume_task_id = gr.Textbox(label="ID de la tâche à reprendre", value="",
                                         interactive=True)
-            parallel_num = gr.Number(label="Parallel Agent Num", value=1,
+            parallel_num = gr.Number(label="Nombre d'agents parallèles", value=1,
                                      precision=0,
                                      interactive=True)
-            max_query = gr.Textbox(label="Research Save Dir", value="./tmp/deep_research",
+            max_query = gr.Textbox(label="Répertoire de sauvegarde", value="./tmp/deep_research",
                                    interactive=True)
     with gr.Row():
-        stop_button = gr.Button("⏹️ Stop", variant="stop", scale=2)
-        start_button = gr.Button("▶️ Run", variant="primary", scale=3)
+        stop_button = gr.Button("⏹️ Arrêt", variant="stop", scale=2)
+        start_button = gr.Button("▶️ Exécuter", variant="primary", scale=3)
     with gr.Group():
-        markdown_display = gr.Markdown(label="Research Report")
-        markdown_download = gr.File(label="Download Research Report", interactive=False)
+        markdown_display = gr.Markdown(label="Rapport de recherche")
+        markdown_download = gr.File(label="Télécharger le rapport de recherche", interactive=False)
     tab_components.update(
         dict(
             research_task=research_task,

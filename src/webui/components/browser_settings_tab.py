@@ -37,98 +37,98 @@ def create_browser_settings_tab(webui_manager: WebuiManager):
     with gr.Group():
         with gr.Row():
             browser_binary_path = gr.Textbox(
-                label="Browser Binary Path",
+                label="Chemin du navigateur",
                 lines=1,
                 interactive=True,
                 placeholder="e.g. '/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome'"
             )
             browser_user_data_dir = gr.Textbox(
-                label="Browser User Data Dir",
+                label="Chemin des données utilisateur du navigateur",
                 lines=1,
                 interactive=True,
-                placeholder="Leave it empty if you use your default user data",
+                placeholder="Laisser vide si vous utilisez vos données utilisateur par défaut",
             )
     with gr.Group():
         with gr.Row():
             use_own_browser = gr.Checkbox(
-                label="Use Own Browser",
+                label="Utiliser mon navigateur",
                 value=bool(strtobool(os.getenv("USE_OWN_BROWSER", "false"))),
-                info="Use your existing browser instance",
+                info="Utiliser votre instance de navigateur existante",
                 interactive=True
             )
             keep_browser_open = gr.Checkbox(
-                label="Keep Browser Open",
+                label="Garder le navigateur ouvert",
                 value=bool(strtobool(os.getenv("KEEP_BROWSER_OPEN", "true"))),
-                info="Keep Browser Open between Tasks",
+                info="Garder le navigateur ouvert entre les tâches",
                 interactive=True
             )
             headless = gr.Checkbox(
-                label="Headless Mode",
+                label="Mode Headless",
                 value=False,
-                info="Run browser without GUI",
+                info="Exécuter le navigateur sans GUI",
                 interactive=True
             )
             disable_security = gr.Checkbox(
-                label="Disable Security",
+                label="Désactiver la sécurité",
                 value=False,
-                info="Disable browser security",
+                info="Désactiver la sécurité du navigateur",
                 interactive=True
             )
 
     with gr.Group():
         with gr.Row():
             window_w = gr.Number(
-                label="Window Width",
+                label="Largeur de la fenêtre",
                 value=1280,
-                info="Browser window width",
+                info="Largeur de la fenêtre du navigateur",
                 interactive=True
             )
             window_h = gr.Number(
-                label="Window Height",
+                label="Hauteur de la fenêtre",
                 value=1100,
-                info="Browser window height",
+                info="Hauteur de la fenêtre du navigateur",
                 interactive=True
             )
     with gr.Group():
         with gr.Row():
             cdp_url = gr.Textbox(
-                label="CDP URL",
+                label="URL CDP",
                 value=os.getenv("BROWSER_CDP", None),
-                info="CDP URL for browser remote debugging",
+                info="URL CDP pour le débogage distant du navigateur",
                 interactive=True,
             )
             wss_url = gr.Textbox(
-                label="WSS URL",
-                info="WSS URL for browser remote debugging",
+                label="URL WSS",
+                info="URL WSS pour le débogage distant du navigateur",
                 interactive=True,
             )
     with gr.Group():
         with gr.Row():
             save_recording_path = gr.Textbox(
-                label="Recording Path",
+                label="Chemin d'enregistrement",
                 placeholder="e.g. ./tmp/record_videos",
-                info="Path to save browser recordings",
+                info="Chemin pour enregistrer les enregistrements du navigateur",
                 interactive=True,
             )
 
             save_trace_path = gr.Textbox(
-                label="Trace Path",
+                label="Chemin d'enregistrement",
                 placeholder="e.g. ./tmp/traces",
-                info="Path to save Agent traces",
+                info="Chemin pour enregistrer les traces de l'agent",
                 interactive=True,
             )
 
         with gr.Row():
             save_agent_history_path = gr.Textbox(
-                label="Agent History Save Path",
+                label="Chemin d'enregistrement",
                 value="./tmp/agent_history",
-                info="Specify the directory where agent history should be saved.",
+                info="Chemin pour enregistrer l'historique de l'agent",
                 interactive=True,
             )
             save_download_path = gr.Textbox(
-                label="Save Directory for browser downloads",
+                label="Chemin d'enregistrement",
                 value="./tmp/downloads",
-                info="Specify the directory where downloaded files should be saved.",
+                info="Chemin pour enregistrer les fichiers téléchargés",
                 interactive=True,
             )
     tab_components.update(

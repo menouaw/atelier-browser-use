@@ -13,16 +13,16 @@ def create_load_save_config_tab(webui_manager: WebuiManager):
     tab_components = {}
 
     config_file = gr.File(
-        label="Load UI Settings from json",
+        label="Charger les paramètres de l'interface utilisateur (json)",
         file_types=[".json"],
         interactive=True
     )
     with gr.Row():
-        load_config_button = gr.Button("Load Config", variant="primary")
-        save_config_button = gr.Button("Save UI Settings", variant="primary")
+        load_config_button = gr.Button("Charger les paramètres", variant="primary")
+        save_config_button = gr.Button("Enregistrer les paramètres", variant="primary")
 
     config_status = gr.Textbox(
-        label="Status",
+        label="Statut",
         lines=2,
         interactive=False
     )

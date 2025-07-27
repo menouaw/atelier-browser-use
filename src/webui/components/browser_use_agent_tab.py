@@ -568,7 +568,7 @@ async def run_agent_task(
             if is_paused:
                 yield {
                     pause_resume_button_comp: gr.update(
-                        value="▶️ Resume", interactive=True
+                        value="▶️ Reprendre", interactive=True
                     ),
                     stop_button_comp: gr.update(interactive=True),
                 }
@@ -592,7 +592,7 @@ async def run_agent_task(
                         value="⏸️ Pause", interactive=True
                     ),
                     run_button_comp: gr.update(
-                        value="⏳ Running...", interactive=False
+                        value="⏳ En cours...", interactive=False
                     ),
                 }
 
@@ -619,11 +619,11 @@ async def run_agent_task(
             if webui_manager.bu_response_event is not None:
                 update_dict = {
                     user_input_comp: gr.update(
-                        placeholder="Agent needs help. Enter response and submit.",
+                        placeholder="L'agent a besoin d'aide. Entrez votre réponse et envoyez.",
                         interactive=True,
                     ),
                     run_button_comp: gr.update(
-                        value="✔️ Submit Response", interactive=True
+                        value="✔️ Envoyer", interactive=True
                     ),
                     pause_resume_button_comp: gr.update(interactive=False),
                     stop_button_comp: gr.update(interactive=False),
@@ -641,10 +641,10 @@ async def run_agent_task(
                 if not agent_task.done():
                     yield {
                         user_input_comp: gr.update(
-                            placeholder="Agent is running...", interactive=False
+                            placeholder="L'agent est en cours d'exécution...", interactive=False
                         ),
                         run_button_comp: gr.update(
-                            value="⏳ Running...", interactive=False
+                            value="⏳ En cours...", interactive=False
                         ),
                         pause_resume_button_comp: gr.update(interactive=True),
                         stop_button_comp: gr.update(interactive=True),
@@ -760,10 +760,10 @@ async def run_agent_task(
                     user_input_comp: gr.update(
                         value="",
                         interactive=True,
-                        placeholder="Enter your next task...",
+                        placeholder="Entrer votre prochaine tâche...",
                     ),
-                    run_button_comp: gr.update(value="▶️ Submit Task", interactive=True),
-                    stop_button_comp: gr.update(value="⏹️ Stop", interactive=False),
+                    run_button_comp: gr.update(value="▶️ Envoyer", interactive=True),
+                    stop_button_comp: gr.update(value="⏹️ Arrêt", interactive=False),
                     pause_resume_button_comp: gr.update(
                         value="⏸️ Pause", interactive=False
                     ),
@@ -780,10 +780,10 @@ async def run_agent_task(
         webui_manager.bu_current_task = None  # Ensure state is reset
         yield {
             user_input_comp: gr.update(
-                interactive=True, placeholder="Error during setup. Enter task..."
+                interactive=True, placeholder="Erreur lors de la configuration. Entrez votre tâche..."
             ),
-            run_button_comp: gr.update(value="▶️ Submit Task", interactive=True),
-            stop_button_comp: gr.update(value="⏹️ Stop", interactive=False),
+            run_button_comp: gr.update(value="▶️ Envoyer", interactive=True),
+            stop_button_comp: gr.update(value="⏹️ Arrêt", interactive=False),
             pause_resume_button_comp: gr.update(value="⏸️ Pause", interactive=False),
             clear_button_comp: gr.update(interactive=True),
             chatbot_comp: gr.update(
@@ -815,18 +815,18 @@ async def handle_submit(
             user_input_comp: gr.update(
                 value="",
                 interactive=False,
-                placeholder="Waiting for agent to continue...",
+                placeholder="En attente de la continuation de l'agent...",
             ),
             webui_manager.get_component_by_id(
                 "browser_use_agent.run_button"
-            ): gr.update(value="⏳ Running...", interactive=False),
+            ): gr.update(value="⏳ En cours...", interactive=False),
         }
     # Check if a task is currently running (using _current_task)
     elif webui_manager.bu_current_task and not webui_manager.bu_current_task.done():
         logger.warning(
             "Submit button clicked while agent is already running and not asking for help."
         )
-        gr.Info("Agent is currently running. Please wait or use Stop/Pause.")
+        gr.Info("L'agent est en cours d'exécution. Veuillez attendre ou utiliser Arrêt/Pause.")
         yield {}  # No change
     else:
         # Handle submission for a new task
@@ -849,7 +849,7 @@ async def handle_stop(webui_manager: WebuiManager):
         return {
             webui_manager.get_component_by_id(
                 "browser_use_agent.stop_button"
-            ): gr.update(interactive=False, value="⏹️ Stopping..."),
+            ): gr.update(interactive=False, value="⏹️ Arrêt..."),
             webui_manager.get_component_by_id(
                 "browser_use_agent.pause_resume_button"
             ): gr.update(interactive=False),
@@ -897,7 +897,7 @@ async def handle_pause_resume(webui_manager: WebuiManager):
             return {
                 webui_manager.get_component_by_id(
                     "browser_use_agent.pause_resume_button"
-                ): gr.update(value="▶️ Resume", interactive=True)
+                ): gr.update(value="▶️ Reprendre", interactive=True)
             }  # Optimistic update
     else:
         logger.warning(
@@ -943,7 +943,7 @@ async def handle_clear(webui_manager: WebuiManager):
             value=[]
         ),
         webui_manager.get_component_by_id("browser_use_agent.user_input"): gr.update(
-            value="", placeholder="Enter your task here..."
+            value="", placeholder="Entrer votre tâche ici..."
         ),
         webui_manager.get_component_by_id(
             "browser_use_agent.agent_history_file"
@@ -955,7 +955,7 @@ async def handle_clear(webui_manager: WebuiManager):
             value="<div style='...'>Browser Cleared</div>"
         ),
         webui_manager.get_component_by_id("browser_use_agent.run_button"): gr.update(
-            value="▶️ Submit Task", interactive=True
+            value="▶️ Envoyer", interactive=True
         ),
         webui_manager.get_component_by_id("browser_use_agent.stop_button"): gr.update(
             interactive=False
@@ -990,23 +990,23 @@ def create_browser_use_agent_tab(webui_manager: WebuiManager):
             show_copy_button=True,
         )
         user_input = gr.Textbox(
-            label="Your Task or Response",
-            placeholder="Enter your task here or provide assistance when asked.",
+            label="Entrer votre requête ici.",
+            placeholder="Entrer votre tâche ici ou fournir de l'aide lorsque demandé.",
             lines=3,
             interactive=True,
             elem_id="user_input",
         )
         with gr.Row():
             stop_button = gr.Button(
-                "⏹️ Stop", interactive=False, variant="stop", scale=2
+                "⏹️ Arrêt", interactive=False, variant="stop", scale=2
             )
             pause_resume_button = gr.Button(
                 "⏸️ Pause", interactive=False, variant="secondary", scale=2, visible=True
             )
             clear_button = gr.Button(
-                "🗑️ Clear", interactive=True, variant="secondary", scale=2
+                "🗑️ Effacer", interactive=True, variant="secondary", scale=2
             )
-            run_button = gr.Button("▶️ Submit Task", variant="primary", scale=3)
+            run_button = gr.Button("▶️ Envoyer", variant="primary", scale=3)
 
         browser_view = gr.HTML(
             value="<div style='width:100%; height:50vh; display:flex; justify-content:center; align-items:center; border:1px solid #ccc; background-color:#f0f0f0;'><p>Browser View (Requires Headless=True)</p></div>",
@@ -1015,10 +1015,10 @@ def create_browser_use_agent_tab(webui_manager: WebuiManager):
             visible=False,
         )
         with gr.Column():
-            gr.Markdown("### Task Outputs")
+            gr.Markdown("### Sorties de l'agent")
             agent_history_file = gr.File(label="Agent History JSON", interactive=False)
             recording_gif = gr.Image(
-                label="Task Recording GIF",
+                label="Enregistrement GIF",
                 format="gif",
                 interactive=False,
                 type="filepath",
