@@ -7,6 +7,7 @@ from src.webui.components.browser_use_agent_tab import create_browser_use_agent_
 from src.webui.components.deep_research_agent_tab import create_deep_research_agent_tab
 from src.webui.components.load_save_config_tab import create_load_save_config_tab
 from src.webui.components.workshop_1_tab import create_workshop_1_tab
+from src.webui.components.workshop_2_tab import create_workshop_2_tab
 
 theme_map = {
     "Default": gr.themes.Default(),
@@ -88,8 +89,10 @@ def create_ui(theme_name="Ocean"):
                     elem_classes=["tab-header-text"],
                 )
                 with gr.Tabs():
-                    with gr.TabItem("OrangeHRM - Connexion"):
+                    with gr.TabItem("OrangeHRM"):
                         create_workshop_1_tab(ui_manager)
+                    with gr.TabItem("Automation Exercise"):
+                        create_workshop_2_tab(ui_manager)
 
             with gr.TabItem("🎁 Agents personnalisés"):
                 gr.Markdown(
