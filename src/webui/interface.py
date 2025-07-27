@@ -8,6 +8,7 @@ from src.webui.components.deep_research_agent_tab import create_deep_research_ag
 from src.webui.components.load_save_config_tab import create_load_save_config_tab
 from src.webui.components.workshop_1_tab import create_workshop_1_tab
 from src.webui.components.workshop_2_tab import create_workshop_2_tab
+from src.webui.components.workshop_3_tab import create_workshop_3_tab
 
 theme_map = {
     "Default": gr.themes.Default(),
@@ -93,6 +94,8 @@ def create_ui(theme_name="Ocean"):
                         create_workshop_1_tab(ui_manager)
                     with gr.TabItem("Automation Exercise"):
                         create_workshop_2_tab(ui_manager)
+                    with gr.TabItem("Stress-Test"):
+                        create_workshop_3_tab(ui_manager)
 
             with gr.TabItem("🎁 Agents personnalisés"):
                 gr.Markdown(
